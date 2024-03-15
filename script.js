@@ -10,7 +10,8 @@
 const form = document.querySelector('form');
 const input = form.querySelector('input[name="task"]');
 const tasksList = document.querySelector('.tasks');
-const ws = new WebSocket('ws://localhost:8000');
+const host = window.location.hostname;
+const ws = new WebSocket(`ws://${host}:8000`);
 
 // loadTasks().then(showTasks)
 
@@ -78,7 +79,7 @@ function handleRemove(e) {
         const item = e.target.closest('.task',)
         const index = items.indexOf(item);
 
-        removeTask(index).then(showTasks)
+        removeTask(index)
     }
 }
 
@@ -88,7 +89,7 @@ function handleChange(e) {
     const index = items.indexOf(item);
     const checked = e.target.checked;
 
-    updateTask(index, checked).then(showTasks)
+    updateTask(index, checked)
 }
 
 function updateTask(index, checked) {
@@ -136,4 +137,3 @@ function _updateTask(index, checked) {
     
     return fetch('/api/check', init).then((response)=> response.json())
 }
-
